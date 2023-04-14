@@ -38,17 +38,15 @@ const wagesEarnedOnDate = (object, string) => {
     return hoursWorkedOnDate(object , string) * object.payPerHour;
 }
 const allWagesFor = (object) => {
-    const datesWorked = object.timeInEvents.map(item => item.date);
-    const wagesArray = datesWorked.map(item => {
-        return wagesEarnedOnDate(object, item);
-    })
-    const totalWages = wagesArray.reduce(function(accum, element){
+    return object.timeInEvents.map(item => item.date)
+    .map(item => wagesEarnedOnDate(object, item))
+    .reduce(function(accum, element){
         return accum += element;
-    })
-    return totalWages;
+    });
 }
 const calculatePayroll = (object) => {
-    return object.map(item => allWagesFor(item)).reduce(function(accum,element){
+    return object.map(item => allWagesFor(item))
+    .reduce(function(accum,element){
         return accum += element;
     });
 }
